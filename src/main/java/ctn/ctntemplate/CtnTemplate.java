@@ -1,26 +1,17 @@
 package ctn.ctntemplate;
 
-import ctn.ctntemplate.config.CtnConfig;
-import org.slf4j.Logger;
-
 import com.mojang.logging.LogUtils;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.level.block.Blocks;
-import net.neoforged.api.distmarker.Dist;
+import ctn.ctntemplate.config.CtnConfig;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import org.slf4j.Logger;
 
 import static ctn.ctntemplate.init.ArmorMaterials.ARMOR_MATERIALS_TYPE_REGISTER;
 import static ctn.ctntemplate.init.Blocks.BLOCK_REGISTER;
@@ -33,20 +24,13 @@ import static ctn.ctntemplate.init.MenuTypes.MENU_TYPE_REGISTER;
 import static ctn.ctntemplate.init.ParticleTypes.PARTICLE_TYPE_REGISTER;
 import static ctn.ctntemplate.init.SoundEvents.SOUND_EVENT_TYPE_REGISTER;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(CtnTemplate.MODID)
+@Mod(CtnTemplate.ID)
 public class CtnTemplate {
-    // Define mod id in a common place for everything to reference
-    public static final String MODID = "ctntemplate";
-    // Directly reference a slf4j logger
+    public static final String ID = "ctntemplate";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public CtnTemplate(IEventBus modEventBus, ModContainer modContainer) {
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
-        
+
         BLOCK_REGISTER.register(modEventBus);
         ITEM_REGISTER.register(modEventBus);
         PROJECT_MOON_TAB_REGISTER.register(modEventBus);
@@ -57,44 +41,25 @@ public class CtnTemplate {
         ENTITY_TYPE_REGISTER.register(modEventBus);
         ITEM_DATA_COMPONENT_REGISTER.register(modEventBus);
         MENU_TYPE_REGISTER.register(modEventBus);
-        
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (CTNTemplate) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
+
         NeoForge.EVENT_BUS.register(this);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, CtnConfig.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-        // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (CtnConfig.LOG_DIRT_BLOCK.getAsBoolean()) {
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-        }
-
-        LOGGER.info("{}{}", CtnConfig.MAGIC_NUMBER_INTRODUCTION.get(), CtnConfig.MAGIC_NUMBER.getAsInt());
-
-        CtnConfig.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
+    @SubscribeEvent
+    public static void onRegisterCommands(RegisterCommandsEvent event) {
+        LOGGER.info("Time to register commands!");
+        // 在这注册指令
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    private void commonSetup(FMLCommonSetupEvent event) {
+        LOGGER.info("Hello from common setup");
+    }
+
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @EventBusSubscriber(value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-        }
+        LOGGER.info("Hello from server starting");
     }
 }

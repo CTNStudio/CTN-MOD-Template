@@ -13,48 +13,50 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  */
 @EventBusSubscriber()
 public class PlayerEvents {
-	/**
-	 * 保存玩家属性
-	 */
-	@SubscribeEvent
-	public static void save(PlayerEvent.SaveToFile event) {
-		Player player = event.getEntity();
-	}
-	
-	/**
-	 * 加载玩家-此时客户端玩家未创建
-	 */
-	@SubscribeEvent
-	public static void loading(PlayerEvent.LoadFromFile event) {
-		Player player = event.getEntity();
-	}
-	
-	
-	/** 登录到世界-此时客户端玩家已创建 */
-	@SubscribeEvent
-	public static void loggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-		Player player = event.getEntity();
-		if (player instanceof ServerPlayer serverPlayer) {
-		}
-	}
-	
-	/**
-	 * 玩家重生或维度切换后
-	 */
-	@SubscribeEvent
-	public static void reset(PlayerEvent.Clone event) {
-		Player player = event.getEntity();
-		// 如果玩家是因为死亡...
-		if (event.isWasDeath()) {
-		}
-	}
-	
-	@SubscribeEvent
-	public static void tick(PlayerTickEvent.Pre event) {
-		Player player = event.getEntity();
-		CompoundTag nbt = player.getPersistentData();
-		if (player instanceof ServerPlayer serverPlayer) {
+    /**
+     * 保存玩家属性
+     */
+    @SubscribeEvent
+    public static void save(PlayerEvent.SaveToFile event) {
+        Player player = event.getEntity();
+    }
 
-		}
-	}
+    /**
+     * 加载玩家-此时客户端玩家未创建
+     */
+    @SubscribeEvent
+    public static void loading(PlayerEvent.LoadFromFile event) {
+        Player player = event.getEntity();
+    }
+
+
+    /**
+     * 登录到世界-此时客户端玩家已创建
+     */
+    @SubscribeEvent
+    public static void loggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        Player player = event.getEntity();
+        if (player instanceof ServerPlayer serverPlayer) {
+        }
+    }
+
+    /**
+     * 玩家重生或维度切换后
+     */
+    @SubscribeEvent
+    public static void reset(PlayerEvent.Clone event) {
+        Player player = event.getEntity();
+        // 如果玩家是因为死亡...
+        if (event.isWasDeath()) {
+        }
+    }
+
+    @SubscribeEvent
+    public static void tick(PlayerTickEvent.Pre event) {
+        Player player = event.getEntity();
+        CompoundTag nbt = player.getPersistentData();
+        if (player instanceof ServerPlayer serverPlayer) {
+
+        }
+    }
 }

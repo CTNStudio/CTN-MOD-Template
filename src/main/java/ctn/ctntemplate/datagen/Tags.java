@@ -1,7 +1,6 @@
 package ctn.ctntemplate.datagen;
 
-import ctn.project_moon.init.PmDamageTypes;
-import ctn.project_moon.init.PmItems;
+import ctn.ctntemplate.CtnTemplate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -20,25 +19,23 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.CheckForNull;
 import java.util.concurrent.CompletableFuture;
 
-import static ctn.ctntemplate.CtnTemplate.MODID;
-
 public class Tags {
-	public static class Block extends BlockTagsProvider {
-		
-		public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
-			super(output, lookupProvider, MODID, existingFileHelper);
-		}
-		
-		protected static TagKey<net.minecraft.world.level.block.Block> createTag(String name) {
-			return BlockTags.create(ResourceLocation.fromNamespaceAndPath(MODID, name));
-		}
-		
-		@Override
-		protected void addTags(HolderLookup.@NotNull Provider capability) {
-		}
-	}
-	
-	public static class Item extends ItemTagsProvider {
+    public static class Block extends BlockTagsProvider {
+
+        public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, CtnTemplate.ID, existingFileHelper);
+        }
+
+        protected static TagKey<net.minecraft.world.level.block.Block> createTag(String name) {
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name));
+        }
+
+        @Override
+        protected void addTags(HolderLookup.@NotNull Provider capability) {
+        }
+    }
+
+    public static class Item extends ItemTagsProvider {
 //		public static final TagKey<Item> EGO        = createTag("ego");
 //		public static final TagKey<Item> EGO_CURIOS = createTag("ego_curios");
 //		public static final TagKey<Item> EGO_SUIT   = createTag("ego_suit");
@@ -58,17 +55,17 @@ public class Tags {
 //		public static final TagKey<Item> EGO_CURIOS_GLOVE      = createTag("ego_curios_glove");
 //		public static final TagKey<Item> EGO_CURIOS_RIGHT_BACK = createTag("ego_curios_right_back");
 //		public static final TagKey<Item> EGO_CURIOS_LEFT_BACK  = createTag("ego_curios_left_back");
-		
-		public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<net.minecraft.world.level.block.Block>> blockTags, @CheckForNull ExistingFileHelper existingFileHelper) {
-			super(output, lookupProvider, blockTags, MODID, existingFileHelper);
-		}
-		
-		protected static TagKey<net.minecraft.world.item.Item> createTag(String name) {
-			return ItemTags.create(ResourceLocation.fromNamespaceAndPath(MODID, name));
-		}
-		
-		@Override
-		protected void addTags(HolderLookup.@NotNull Provider capability) {
+
+        public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<net.minecraft.world.level.block.Block>> blockTags, @CheckForNull ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, blockTags, CtnTemplate.ID, existingFileHelper);
+        }
+
+        protected static TagKey<net.minecraft.world.item.Item> createTag(String name) {
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name));
+        }
+
+        @Override
+        protected void addTags(HolderLookup.@NotNull Provider capability) {
 //			tag(EGO_CURIOS_HEADWEAR);
 //			tag(EGO_CURIOS_HEAD);
 //			tag(EGO_CURIOS_HINDBRAIN);
@@ -97,46 +94,46 @@ public class Tags {
 //					.add(PmItems.PARADISE_LOST.get());
 //			tag(EGO)
 //					.addTags(EGO_CURIOS, EGO_SUIT, EGO_WEAPON);
-		}
-	}
-	
-	public static class Entity extends EntityTypeTagsProvider {
+        }
+    }
+
+    public static class Entity extends EntityTypeTagsProvider {
 //		public static final TagKey<EntityType<?>> ABNOS = createTag("abnos");
-		
-		public Entity(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
-			super(output, lookupProvider, MODID, existingFileHelper);
-		}
-		
-		protected static TagKey<EntityType<?>> createTag(String name) {
-			return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, name));
-		}
-		
-		@Override
-		protected void addTags(HolderLookup.@NotNull Provider capability) {
+
+        public Entity(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, CtnTemplate.ID, existingFileHelper);
+        }
+
+        protected static TagKey<EntityType<?>> createTag(String name) {
+            return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name));
+        }
+
+        @Override
+        protected void addTags(HolderLookup.@NotNull Provider capability) {
 //			tag(ABNOS);
-		}
-	}
-	
-	public static class DamageType extends DamageTypeTagsProvider {
+        }
+    }
+
+    public static class DamageType extends DamageTypeTagsProvider {
 //		public static final TagKey<DamageType> ABNOS = createTag("abnos");
 //		public static final TagKey<DamageType> EGO   = createTag("ego");
-		
-		public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
-			super(output, lookupProvider, MODID, existingFileHelper);
-		}
-		
-		protected static TagKey<net.minecraft.world.damagesource.DamageType> createTag(String name) {
-			return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, name));
-		}
-		
-		@Override
-		protected void addTags(HolderLookup.@NotNull Provider capability) {
+
+        public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @CheckForNull ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, CtnTemplate.ID, existingFileHelper);
+        }
+
+        protected static TagKey<net.minecraft.world.damagesource.DamageType> createTag(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name));
+        }
+
+        @Override
+        protected void addTags(HolderLookup.@NotNull Provider capability) {
 //			tag(ABNOS)
 //					.addOptional(PmDamageTypes.ABNOS.location());
 //			tag(EGO)
 //					.addOptional(PmDamageTypes.EGO.location());
 //			tag(ALWAYS_HURTS_ENDER_DRAGONS)
 //					.addTags(ABNOS, EGO);
-		}
-	}
+        }
+    }
 }

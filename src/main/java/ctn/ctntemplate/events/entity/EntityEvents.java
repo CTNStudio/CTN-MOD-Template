@@ -9,10 +9,10 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
  */
 @EventBusSubscriber()
 public class EntityEvents {
-	/**
-	 * 实体死亡事件
-	 */
-	@SubscribeEvent
-	public static void deathEvent(LivingDeathEvent event) {
-	}
+    /**
+     * 实体死亡事件
+     */
+    @SubscribeEvent
+    public static void deathEvent(LivingDeathEvent event) {
+    }
 }

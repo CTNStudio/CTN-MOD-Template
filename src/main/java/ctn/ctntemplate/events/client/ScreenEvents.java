@@ -15,24 +15,24 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
  */
 @EventBusSubscriber(value = Dist.CLIENT)
 public class ScreenEvents {
-	@SubscribeEvent
-	public static void renderGuiEventPre(RenderGuiLayerEvent.Pre event) {
-	
-	}
-	
-	@SubscribeEvent
-	public static void renderGuiEventPost(RenderGuiLayerEvent.Post event) {
-	
-	}
-	
-	@SubscribeEvent
-	public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
-		Screen screen = evt.getScreen();
-		
-		if (screen instanceof InventoryScreen || screen instanceof CreativeModeInventoryScreen) {
-			AbstractContainerScreen<?> gui = (AbstractContainerScreen<?>) screen;
+    @SubscribeEvent
+    public static void renderGuiEventPre(RenderGuiLayerEvent.Pre event) {
+
+    }
+
+    @SubscribeEvent
+    public static void renderGuiEventPost(RenderGuiLayerEvent.Post event) {
+
+    }
+
+    @SubscribeEvent
+    public static void onInventoryGuiInit(ScreenEvent.Init.Post evt) {
+        Screen screen = evt.getScreen();
+
+        if (screen instanceof InventoryScreen || screen instanceof CreativeModeInventoryScreen) {
+            AbstractContainerScreen<?> gui = (AbstractContainerScreen<?>) screen;
 //			evt.addListener(new PlayerAttributeButton(gui));
 //			evt.addListener(new PlayerSkillButton(gui));
-		}
-	}
+        }
+    }
 }

@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "ctn.ctntemplate.mixin",
+  "package": "",
   "mixins": [
   ],
   "client": [

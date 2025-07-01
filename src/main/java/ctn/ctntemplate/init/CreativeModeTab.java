@@ -1,5 +1,6 @@
 package ctn.ctntemplate.init;
 
+import ctn.ctntemplate.CtnTemplate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -13,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static ctn.ctntemplate.CtnTemplate.MODID;
-
-/** 创造模式物品栏 */
+/**
+ * 创造模式物品栏
+ */
 public class CreativeModeTab extends CreativeModeTabs {
-	public static final DeferredRegister<net.minecraft.world.item.CreativeModeTab> PROJECT_MOON_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<net.minecraft.world.item.CreativeModeTab> PROJECT_MOON_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CtnTemplate.ID);
 //	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EGO_WEAPON                =
 //			register(
 //					"ego_weapon", (name) -> createCreativeModeTab(
@@ -30,31 +31,31 @@ public class CreativeModeTab extends CreativeModeTabs {
 //								output.accept(PmItems.PARADISE_LOST.get());
 //								output.accept(PmItems.MAGIC_BULLET.get());
 //							}, () -> PmItems.EGO_WEAPON_ICON.get().getDefaultInstance()));
-	
-	private static DeferredHolder<net.minecraft.world.item.CreativeModeTab, net.minecraft.world.item.CreativeModeTab> register(String name, Function<String, net.minecraft.world.item.CreativeModeTab.Builder> builder) {
-		return PROJECT_MOON_TAB_REGISTER.register(name, builder.apply(name)::build);
-	}
-	
-	private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
-			String name,
-			net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
-			Supplier<ItemStack> icon,
-			ResourceKey<net.minecraft.world.item.CreativeModeTab> withTabsBefore) {
-		return createCreativeModeTab(name, displayItemsGenerator, icon).withTabsBefore(withTabsBefore);
-	}
-	
-	private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
-			String name,
-			net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
-			Supplier<ItemStack> icon) {
-		return createCreativeModeTab(name, displayItemsGenerator).icon(icon);
-	}
-	
-	private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(String name, net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator) {
-		return net.minecraft.world.item.CreativeModeTab.builder().title(getComponent(name)).displayItems(displayItemsGenerator);
-	}
-	
-	private static @NotNull MutableComponent getComponent(String imagePath) {
-		return Component.translatable("itemGroup." + MODID + "." + imagePath);
-	}
+
+    private static DeferredHolder<net.minecraft.world.item.CreativeModeTab, net.minecraft.world.item.CreativeModeTab> register(String name, Function<String, net.minecraft.world.item.CreativeModeTab.Builder> builder) {
+        return PROJECT_MOON_TAB_REGISTER.register(name, builder.apply(name)::build);
+    }
+
+    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
+            String name,
+            net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
+            Supplier<ItemStack> icon,
+            ResourceKey<net.minecraft.world.item.CreativeModeTab> withTabsBefore) {
+        return createCreativeModeTab(name, displayItemsGenerator, icon).withTabsBefore(withTabsBefore);
+    }
+
+    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
+            String name,
+            net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
+            Supplier<ItemStack> icon) {
+        return createCreativeModeTab(name, displayItemsGenerator).icon(icon);
+    }
+
+    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(String name, net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator) {
+        return net.minecraft.world.item.CreativeModeTab.builder().title(getComponent(name)).displayItems(displayItemsGenerator);
+    }
+
+    private static @NotNull MutableComponent getComponent(String imagePath) {
+        return Component.translatable("itemGroup." + CtnTemplate.ID + "." + imagePath);
+    }
 }

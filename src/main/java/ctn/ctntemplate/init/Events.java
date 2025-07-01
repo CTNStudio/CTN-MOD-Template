@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
  * 事件
  */
 public class Events {
-	private static final Logger LOGGER = LogManager.getLogger();
-	
+    private static final Logger LOGGER = LogManager.getLogger();
+
 //	public static RationalityEvent.Heal rationalityHeal(LivingEntity entity, double amount) {
 //		return NeoForge.EVENT_BUS.post(new RationalityEvent.Heal(entity, amount));
 //	}

@@ -1,5 +1,6 @@
 package ctn.ctntemplate.datagen;
 
+import ctn.ctntemplate.CtnTemplate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.data.PackOutput;
@@ -11,16 +12,22 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
-import static ctn.ctntemplate.CtnTemplate.MODID;
-
 
 public class DatagenI18ZhCn extends LanguageProvider {
-	public DatagenI18ZhCn(PackOutput output) {
-		super(output, MODID, "zh_cn");
-	}
-	
-	@Override
-	protected void addTranslations() {
+    public DatagenI18ZhCn(PackOutput output) {
+        super(output, CtnTemplate.ID, "zh_cn");
+    }
+
+    public static String translationKey(String string) {
+        return CtnTemplate.ID + ".configgui." + string;
+    }
+
+    public static String commentKey(String string) {
+        return CtnTemplate.ID + ".configgui." + string + ".tooltip";
+    }
+
+    @Override
+    protected void addTranslations() {
 //		add(PmCreativeModeTab.EGO_WEAPON, "E.G.O 武器");
 //
 //		add(MOD_ID + ".item_tooltip.geo_describe.damage_type", "伤害类型");
@@ -50,58 +57,52 @@ public class DatagenI18ZhCn extends LanguageProvider {
 //		add(ATTRIBUTE_TO_SET + FourColorAttribute.Type.JUSTICE.getName(), "更改玩家正义点数为 %d");
 //
 //		addSkill(PmSkills.EMPTY, "NULL");
-	}
-	
-	public void addConfig(String configKey, String translationDescribe, String commentDescribe) {
-		add(translationKey(configKey), translationDescribe);
-		add(commentKey(configKey), commentDescribe);
-	}
-	
-	public void addConfig(String configKey, String translationDescribe) {
-		add(translationKey(configKey), translationDescribe);
-	}
-	
-	public <T> void addAttribute(Supplier<DataComponentType<T>> dataComponentType, String name) {
-		add(dataComponentType.get().toString(), name);
-	}
-	
-	/** 生物属性翻译 */
-	public void addAttribute(Holder<Attribute> attributeHolder, String name) {
-		add(attributeHolder.value().getDescriptionId(), name);
-	}
-	
-	/**
-	 * 死亡消息翻译
-	 */
-	public void addDeathMessage(ResourceKey<DamageType> damageType, String name) {
-		add("death.attack." + damageType.location().getPath(), name);
-	}
-	
-	/**
-	 * 玩家死亡消息翻译
-	 */
-	public void addPlayerDeathMessage(ResourceKey<DamageType> damageType, String name) {
-		add("death.attack." + damageType.location().getPath() + ".player", name);
-	}
-	
-	/**
-	 * 创造模式物品栏名称翻译
-	 */
-	public <R, T extends R> void add(DeferredHolder<R, T> itemGroup, String name) {
-		add("itemGroup." + itemGroup.getId().toString().replace(":", "."), name);
-	}
-	
-	public void addCurios(String curiosIdName, String name) {
-		add("curios.identifier." + curiosIdName, name);
-		add("curios.modifiers." + curiosIdName, name + "饰品加成：");
-	}
-	
-	public static String translationKey(String string) {
-		return MODID + ".configgui." + string;
-	}
-	
-	public static String commentKey(String string) {
-		return MODID + ".configgui." + string + ".tooltip";
-	}
-	
+    }
+
+    public void addConfig(String configKey, String translationDescribe, String commentDescribe) {
+        add(translationKey(configKey), translationDescribe);
+        add(commentKey(configKey), commentDescribe);
+    }
+
+    public void addConfig(String configKey, String translationDescribe) {
+        add(translationKey(configKey), translationDescribe);
+    }
+
+    public <T> void addAttribute(Supplier<DataComponentType<T>> dataComponentType, String name) {
+        add(dataComponentType.get().toString(), name);
+    }
+
+    /**
+     * 生物属性翻译
+     */
+    public void addAttribute(Holder<Attribute> attributeHolder, String name) {
+        add(attributeHolder.value().getDescriptionId(), name);
+    }
+
+    /**
+     * 死亡消息翻译
+     */
+    public void addDeathMessage(ResourceKey<DamageType> damageType, String name) {
+        add("death.attack." + damageType.location().getPath(), name);
+    }
+
+    /**
+     * 玩家死亡消息翻译
+     */
+    public void addPlayerDeathMessage(ResourceKey<DamageType> damageType, String name) {
+        add("death.attack." + damageType.location().getPath() + ".player", name);
+    }
+
+    /**
+     * 创造模式物品栏名称翻译
+     */
+    public <R, T extends R> void add(DeferredHolder<R, T> itemGroup, String name) {
+        add("itemGroup." + itemGroup.getId().toString().replace(":", "."), name);
+    }
+
+    public void addCurios(String curiosIdName, String name) {
+        add("curios.identifier." + curiosIdName, name);
+        add("curios.modifiers." + curiosIdName, name + "饰品加成：");
+    }
+
 }

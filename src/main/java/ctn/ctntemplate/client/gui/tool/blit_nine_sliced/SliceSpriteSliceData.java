@@ -1,6 +1,5 @@
 package ctn.ctntemplate.client.gui.tool.blit_nine_sliced;
 
-import ctn.project_moon.mixin_extend.IModGuiGraphics;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
@@ -8,12 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 public record SliceSpriteSliceData(int width, int height,
                                    int uOffset, int vOffset,
                                    int uWidth, int vHeight) {
-	public void blit(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y) {
-		this.blit(texture, guiGraphics, x, y, 256, 256);
-	}
-	
-	public void blit(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y, int textureWidth, int textureHeight) {
-		guiGraphics.blit(texture, x, y, width, height, uOffset, vOffset, uWidth, vHeight, textureWidth, textureHeight);
-	}
+    public void blit(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y) {
+        this.blit(texture, guiGraphics, x, y, 256, 256);
+    }
+
+    public void blit(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y, int textureWidth, int textureHeight) {
+        guiGraphics.blit(texture, x, y, width, height, uOffset, vOffset, uWidth, vHeight, textureWidth, textureHeight);
+    }
 }
 		
