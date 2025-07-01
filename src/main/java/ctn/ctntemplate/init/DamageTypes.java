@@ -13,7 +13,7 @@ public interface DamageTypes extends net.minecraft.world.damagesource.DamageType
     /**
      * 创建伤害类型
      */
-    static ResourceKey<DamageType> create(final String name) {
+    static ResourceKey<DamageType> register(final String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name));
     }
 }

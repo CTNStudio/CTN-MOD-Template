@@ -21,7 +21,7 @@ public class CreativeModeTab extends CreativeModeTabs {
     public static final DeferredRegister<net.minecraft.world.item.CreativeModeTab> PROJECT_MOON_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CtnTemplate.ID);
 //	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EGO_WEAPON                =
 //			register(
-//					"ego_weapon", (name) -> createCreativeModeTab(
+//					"ego_weapon", (name) -> registerCreativeModeTab(
 //							name,
 //							(parameters, output) -> {
 //								output.accept(PmItems.DETONATING_BATON.get());
@@ -36,22 +36,22 @@ public class CreativeModeTab extends CreativeModeTabs {
         return PROJECT_MOON_TAB_REGISTER.register(name, builder.apply(name)::build);
     }
 
-    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
+    private static net.minecraft.world.item.CreativeModeTab.Builder registerCreativeModeTab(
             String name,
             net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
             Supplier<ItemStack> icon,
             ResourceKey<net.minecraft.world.item.CreativeModeTab> withTabsBefore) {
-        return createCreativeModeTab(name, displayItemsGenerator, icon).withTabsBefore(withTabsBefore);
+        return registerCreativeModeTab(name, displayItemsGenerator, icon).withTabsBefore(withTabsBefore);
     }
 
-    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(
+    private static net.minecraft.world.item.CreativeModeTab.Builder registerCreativeModeTab(
             String name,
             net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
             Supplier<ItemStack> icon) {
-        return createCreativeModeTab(name, displayItemsGenerator).icon(icon);
+        return registerCreativeModeTab(name, displayItemsGenerator).icon(icon);
     }
 
-    private static net.minecraft.world.item.CreativeModeTab.Builder createCreativeModeTab(String name, net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator) {
+    private static net.minecraft.world.item.CreativeModeTab.Builder registerCreativeModeTab(String name, net.minecraft.world.item.CreativeModeTab.DisplayItemsGenerator displayItemsGenerator) {
         return net.minecraft.world.item.CreativeModeTab.builder().title(getComponent(name)).displayItems(displayItemsGenerator);
     }
 

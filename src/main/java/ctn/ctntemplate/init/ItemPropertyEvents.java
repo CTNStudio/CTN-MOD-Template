@@ -15,7 +15,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
  */
 @EventBusSubscriber(value = Dist.CLIENT)
 public class ItemPropertyEvents {
-//	public static final ResourceLocation MODE_BOOLEAN        = createProperties("mode_boolean");
+//	public static final ResourceLocation MODE_BOOLEAN        = registerProperties("mode_boolean");
 
 //	public static final ClampedItemPropertyFunction PROPERTY_MODE_BOOLEAN = (itemStack, clientLevel, livingEntity, i) ->
 //			Boolean.TRUE.equals(itemStack.get(PmItemDataComponents.MODE_BOOLEAN)) ? 1 : 0;
@@ -26,14 +26,14 @@ public class ItemPropertyEvents {
      */
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-//		createProperties(event, PmItems.CREATIVE_RATIONALITY_TOOL.asItem(), MODE_BOOLEAN, PROPERTY_MODE_BOOLEAN);
+//		registerProperties(event, PmItems.CREATIVE_RATIONALITY_TOOL.asItem(), MODE_BOOLEAN, PROPERTY_MODE_BOOLEAN);
     }
 
-    private static void createProperties(FMLClientSetupEvent event, Item item, ResourceLocation propertiesName, ClampedItemPropertyFunction propertyFunction) {
+    private static void registerProperties(FMLClientSetupEvent event, Item item, ResourceLocation propertiesName, ClampedItemPropertyFunction propertyFunction) {
         event.enqueueWork(() -> ItemProperties.register(item, propertiesName, propertyFunction));
     }
 
-    private static ResourceLocation createProperties(String name) {
+    private static ResourceLocation registerProperties(String name) {
         return ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name);
     }
 }

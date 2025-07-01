@@ -27,19 +27,19 @@ public class Items {
         return ITEM_REGISTER.registerSimpleItem(name, new Item.Properties().stacksTo(1));
     }
 
-    private static DeferredItem<Item> creativeToolItem(String name) {
+    private static DeferredItem<Item> registerToolItem(String name) {
         return ITEM_REGISTER.registerSimpleItem(name, new Item.Properties().stacksTo(1));
     }
 
-    private static DeferredItem<Item> creativeToolItem(String name, Function<Item.Properties, ? extends Item> item) {
+    private static DeferredItem<Item> registerToolItem(String name, Function<Item.Properties, ? extends Item> item) {
         return ITEM_REGISTER.registerItem(name, item, new Item.Properties().stacksTo(1));
     }
 
-    private static DeferredItem<Item> createItem(String name, Function<Item.Properties, ? extends Item> item, Item.Properties properties) {
+    private static DeferredItem<Item> registerItem(String name, Function<Item.Properties, ? extends Item> item, Item.Properties properties) {
         return ITEM_REGISTER.registerItem(name, item, properties.stacksTo(1));
     }
 
-    private static DeferredItem<Item> createItem(String name, Function<Item.Properties, ? extends Item> item) {
+    private static DeferredItem<Item> registerItem(String name, Function<Item.Properties, ? extends Item> item) {
         return ITEM_REGISTER.registerItem(name, item, new Item.Properties().stacksTo(1));
     }
 }
