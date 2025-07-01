@@ -96,9 +96,9 @@ public class DatagenItemModel extends ItemModelProvider {
     }
 
     /**
-     * 用与给geo模型生成的
+     * 用于给于特殊渲染模型生成的
      */
-    public void geoItem(Item item) {
+    public void specialItem(Item item) {
         getBuilder(item.toString()).parent(new ModelFile.UncheckedModelFile(parse("builtin/entity")));
     }
 
