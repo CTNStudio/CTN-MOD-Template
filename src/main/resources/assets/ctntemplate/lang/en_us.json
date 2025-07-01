@@ -1,0 +1,13 @@
+{
+  "itemGroup.ctntemplate": "Example Mod Tab",
+  "block.ctntemplate.example_block": "Example Block",
+  "item.ctntemplate.example_item": "Example Item",
+
+  "ctntemplate.configuration.title": "CTN_Template Configs",
+  "ctntemplate.configuration.section.ctntemplate.common.toml": "CTN_Template Configs",
+  "ctntemplate.configuration.section.ctntemplate.common.toml.title": "CTN_Template Configs",
+  "ctntemplate.configuration.items": "Item List",
+  "ctntemplate.configuration.logDirtBlock": "Log Dirt Block",
+  "ctntemplate.configuration.magicNumberIntroduction": "Magic Number Text",
+  "ctntemplate.configuration.magicNumber": "Magic Number"
+}

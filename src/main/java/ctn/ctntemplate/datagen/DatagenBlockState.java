@@ -1,0 +1,19 @@
+package ctn.ctntemplate.datagen;
+
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+import static ctn.ctntemplate.CtnTemplate.MODID;
+
+
+public class DatagenBlockState extends BlockStateProvider {
+	public DatagenBlockState(PackOutput output, ExistingFileHelper exFileHelper) {
+		super(output, MODID, exFileHelper);
+	}
+	
+	@Override
+	protected void registerStatesAndModels() {
+	
+	}
+}
