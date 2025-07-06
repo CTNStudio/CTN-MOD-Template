@@ -223,12 +223,24 @@ public class ShapedBuilder {
      * @return 当前实例
      */
     public ShapedBuilder basicUnlockedBy() {
-        for (Character character : this.key.keySet()) {
+        this.unlockedBy(resultStack.getDescriptionId(), DatagenRecipeProvider.has(resultStack.getItem()));
+        for (Map.Entry<Character, Ingredient> entry : key.entrySet()) {
+            Character character = entry.getKey();
+            Ingredient ingredient = entry.getValue();
+            ItemStack[] items = ingredient.getItems();
+            if (items.length > 0) {
+                for (ItemStack stack : items) {
+                    String string = stack.getDescriptionId();
+                    this.unlockedBy(string, DatagenRecipeProvider.has(stack.getItem()));
+                }
+                continue;
+            }
             TagKey<Item> tag = this.tagMap.get(character);
             if (tag != null) {
                 Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(tag);
                 String string = tag.location().toString();
                 this.unlockedBy(string, has);
+                continue;
             }
             ItemLike itemLike = this.itemMap.get(character);
             if (itemLike != null) {
@@ -236,6 +248,7 @@ public class ShapedBuilder {
                 Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(itemLike);
                 String descriptionId = item.getDescriptionId();
                 this.unlockedBy(descriptionId, has);
+                continue;
             }
         }
         return this;
