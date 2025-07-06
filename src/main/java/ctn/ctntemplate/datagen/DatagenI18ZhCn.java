@@ -18,14 +18,6 @@ public class DatagenI18ZhCn extends LanguageProvider {
         super(output, CtnTemplate.ID, "zh_cn");
     }
 
-    public static String translationKey(String string) {
-        return CtnTemplate.ID + ".configgui." + string;
-    }
-
-    public static String commentKey(String string) {
-        return CtnTemplate.ID + ".configgui." + string + ".tooltip";
-    }
-
     @Override
     protected void addTranslations() {
 //		add(PmCreativeModeTab.EGO_WEAPON, "E.G.O 武器");
@@ -62,6 +54,14 @@ public class DatagenI18ZhCn extends LanguageProvider {
     public void addConfig(String configKey, String translationDescribe, String commentDescribe) {
         add(translationKey(configKey), translationDescribe);
         add(commentKey(configKey), commentDescribe);
+    }
+
+    public static String translationKey(String string) {
+        return CtnTemplate.ID + ".configgui." + string;
+    }
+
+    public static String commentKey(String string) {
+        return CtnTemplate.ID + ".configgui." + string + ".tooltip";
     }
 
     public void addConfig(String configKey, String translationDescribe) {
