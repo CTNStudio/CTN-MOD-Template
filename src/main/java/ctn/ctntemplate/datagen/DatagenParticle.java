@@ -19,10 +19,6 @@ public class DatagenParticle extends ParticleDescriptionProvider {
         super(output, fileHelper);
     }
 
-    private static @NotNull ResourceLocation getPath(String name) {
-        return ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name);
-    }
-
     @Override
     protected void addDescriptions() {
 //		createSprite(PmParticleTypes.TEXT_PARTICLE_TYPE,
@@ -45,6 +41,10 @@ public class DatagenParticle extends ParticleDescriptionProvider {
             list.add(getPath(name));
         }
         spriteSet(type.get(), list);
+    }
+
+    private static @NotNull ResourceLocation getPath(String name) {
+        return ResourceLocation.fromNamespaceAndPath(CtnTemplate.ID, name);
     }
 
 }

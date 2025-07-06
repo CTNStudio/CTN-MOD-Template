@@ -59,6 +59,18 @@ public class DatagenItemModel extends ItemModelProvider {
         }
     }
 
+    public ModelFile.UncheckedModelFile createModelFile(Item item, String name) {
+        return new ModelFile.UncheckedModelFile(getItemResourceLocation(item, name).withPrefix("item/"));
+    }
+
+    private @NotNull ResourceLocation getItemResourceLocation(Item item, String name) {
+        return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).withSuffix("_" + name);
+    }
+
+    public ItemModelBuilder specialItem(Item item, String name) {
+        return basicItem(getItemResourceLocation(item, name));
+    }
+
     public void createModelFile(Item item, Map<Float, String> texture, ModelFile parent, ResourceLocation... predicates) {
         var mod = basicItem(item).parent(parent);
         var predicate = predicates[0];
@@ -76,23 +88,11 @@ public class DatagenItemModel extends ItemModelProvider {
         }
     }
 
-    public ModelFile.UncheckedModelFile createModelFile(Item item, String name) {
-        return new ModelFile.UncheckedModelFile(getItemResourceLocation(item, name).withPrefix("item/"));
-    }
-
-    public ItemModelBuilder specialItem(Item item, String name) {
-        return basicItem(getItemResourceLocation(item, name));
-    }
-
     public ItemModelBuilder createModelItem(Item item, ModelFile parent) {
         ResourceLocation resourceLocation = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item));
         return getBuilder(item.toString())
                 .parent(parent)
                 .texture("layer0", fromNamespaceAndPath(resourceLocation.getNamespace(), "item/" + resourceLocation.getPath()));
-    }
-
-    private @NotNull ResourceLocation getItemResourceLocation(Item item, String name) {
-        return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).withSuffix("_" + name);
     }
 
     /**
