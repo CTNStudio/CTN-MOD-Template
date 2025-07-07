@@ -28,18 +28,18 @@ import static ctn.ctntemplate.datagen.recipe.RecipeTool.getIngredient;
  * @author 尽
  */
 public class ShapedBuilder {
-    protected final Map<Character, TagKey<Item>> tagMap = new LinkedHashMap<>();
-    protected final Map<Character, ItemLike> itemMap = new LinkedHashMap<>();
+    protected final Map<Character, TagKey<Item>> tagMap  = new LinkedHashMap<>();
+    protected final Map<Character, ItemLike>     itemMap = new LinkedHashMap<>();
 
-    protected final List<String> rows = Lists.newArrayList(); // 配方排版
-    protected final Map<Character, Ingredient> key = Maps.newLinkedHashMap(); // 配方键
-    protected final Map<String, Criterion<?>> criteria = new LinkedHashMap<>(); // 配方条件
-    protected final ResourceLocation recipesId;
-    protected RecipeCategory category = RecipeCategory.MISC; // 配方分类
-    protected ItemStack resultStack; // 输出物品
+    protected final List<String>               rows             = Lists.newArrayList(); // 配方排版
+    protected final Map<Character, Ingredient> key              = Maps.newLinkedHashMap(); // 配方键
+    protected final Map<String, Criterion<?>>  criteria         = new LinkedHashMap<>(); // 配方条件
+    protected final ResourceLocation           recipesId;
+    protected       RecipeCategory             category         = RecipeCategory.MISC; // 配方分类
+    protected       ItemStack                  resultStack; // 输出物品
     @Nullable
-    protected String group; // 配方分组
-    protected boolean showNotification = true; // 是否显示配方获得提示通知
+    protected       String                     group; // 配方分组
+    protected       boolean                    showNotification = true; // 是否显示配方获得提示通知
 
     public ShapedBuilder(ResourceLocation recipesId, RecipeCategory category, ItemLike result) {
         this(recipesId, category);
@@ -54,7 +54,7 @@ public class ShapedBuilder {
      */
     public ShapedBuilder(ResourceLocation recipesId, RecipeCategory category) {
         this.recipesId = recipesId;
-        this.category = category;
+        this.category  = category;
     }
 
     /**
@@ -223,36 +223,48 @@ public class ShapedBuilder {
      * @return 当前实例
      */
     public ShapedBuilder basicUnlockedBy() {
+        // 以结果堆栈的描述ID和物品设置解锁条件
         this.unlockedBy(resultStack.getDescriptionId(), DatagenRecipeProvider.has(resultStack.getItem()));
+        // 遍历配方的键值对，设置每个键字符对应的解锁条件
         for (Map.Entry<Character, Ingredient> entry : key.entrySet()) {
             Character character = entry.getKey();
             Ingredient ingredient = entry.getValue();
-            ItemStack[] items = ingredient.getItems();
-            if (items.length > 0) {
-                for (ItemStack stack : items) {
-                    String string = stack.getDescriptionId();
-                    this.unlockedBy(string, DatagenRecipeProvider.has(stack.getItem()));
+
+            Ingredient.Value[] ingredientTag = ingredient.getValues();
+
+            for (Ingredient.Value value : ingredientTag) {
+                if (value instanceof Ingredient.TagValue(TagKey<Item> tag)) {
+                    Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(tag);
+                    unlockedBy(tag.location().toString(), has);
+                    continue;
                 }
-                continue;
+                if (value instanceof Ingredient.ItemValue(ItemStack stack)) {
+                    String stackName = stack.getDescriptionId();
+                    Item item = stack.getItem();
+                    Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(item);
+                    this.unlockedBy(stackName, has);
+                }
             }
+
+            // 根据字符获取对应的物品标签，并设置解锁条件
             TagKey<Item> tag = this.tagMap.get(character);
             if (tag != null) {
                 Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(tag);
-                String string = tag.location().toString();
-                this.unlockedBy(string, has);
-                continue;
+                String tagName = tag.location().toString();
+                this.unlockedBy(tagName, has);
             }
+            // 根据字符获取对应的物品，并设置解锁条件
             ItemLike itemLike = this.itemMap.get(character);
             if (itemLike != null) {
                 Item item = itemLike.asItem();
                 Criterion<InventoryChangeTrigger.TriggerInstance> has = DatagenRecipeProvider.has(itemLike);
                 String descriptionId = item.getDescriptionId();
                 this.unlockedBy(descriptionId, has);
-                continue;
             }
         }
         return this;
     }
+
 
     /**
      * 添加解锁条件
@@ -465,6 +477,7 @@ public class ShapedBuilder {
         for (String row : rows) {
             builder.pattern(row);
         }
+        key.forEach(builder::define);
         criteria.forEach(builder::unlockedBy);
         builder.showNotification(showNotification);
         builder.group(group);
