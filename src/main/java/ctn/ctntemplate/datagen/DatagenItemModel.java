@@ -63,12 +63,12 @@ public class DatagenItemModel extends ItemModelProvider {
         return new ModelFile.UncheckedModelFile(getItemResourceLocation(item, name).withPrefix("item/"));
     }
 
-    private @NotNull ResourceLocation getItemResourceLocation(Item item, String name) {
-        return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).withSuffix("_" + name);
-    }
-
     public ItemModelBuilder specialItem(Item item, String name) {
         return basicItem(getItemResourceLocation(item, name));
+    }
+
+    private @NotNull ResourceLocation getItemResourceLocation(Item item, String name) {
+        return Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).withSuffix("_" + name);
     }
 
     public void createModelFile(Item item, Map<Float, String> texture, ModelFile parent, ResourceLocation... predicates) {

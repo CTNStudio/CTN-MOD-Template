@@ -203,8 +203,8 @@ public class RecipeTool {
         return builder.clearPattern()
                 .pattern("###")
                 .pattern("###");
-    }    
-    
+    }
+
     /**
      * 创建门配方模式
      * '#' 主要材料
@@ -256,14 +256,6 @@ public class RecipeTool {
                 .pattern("###");
     }
 
-    /**
-     * 附上材料
-     */
-    public static ShapedBuilder defineRequires(ShapedBuilder builder, Map<Character, Ingredient> requires) {
-        requires.forEach(builder::define);
-        return builder;
-    }
-
     public static @NotNull Ingredient getIngredient(ItemLike item) {
         return Ingredient.of(item);
     }
@@ -278,5 +270,13 @@ public class RecipeTool {
                 .basicUnlockedBy()
                 .group(group)
                 .save(recipeOutput);
+    }
+
+    /**
+     * 附上材料
+     */
+    public static ShapedBuilder defineRequires(ShapedBuilder builder, Map<Character, Ingredient> requires) {
+        requires.forEach(builder::define);
+        return builder;
     }
 }

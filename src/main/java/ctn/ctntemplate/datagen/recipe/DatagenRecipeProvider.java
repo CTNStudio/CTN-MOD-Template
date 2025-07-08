@@ -25,7 +25,7 @@ import static ctn.ctntemplate.datagen.recipe.RecipeTool.*;
  * @author 尽
  */
 @SuppressWarnings("UnusedReturnValue")
-public class DatagenRecipeProvider extends RecipeProvider {
+public abstract class DatagenRecipeProvider extends RecipeProvider {
     private final String modId;
 
     public DatagenRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -45,23 +45,12 @@ public class DatagenRecipeProvider extends RecipeProvider {
         return RecipeProvider.has(itemLike);
     }
 
-    private @NotNull ResourceLocation getLocation(String unpackedName) {
-        return ResourceLocation.fromNamespaceAndPath(modId, unpackedName);
-    }
-
     public @NotNull ShapedBuilder buildingRecipeBuilder(ItemLike result) {
         return buildingRecipeBuilder(result, 1);
     }
 
-    public @NotNull ShapedBuilder buildingRecipeBuilder(ItemLike result, int count) {
-        ResourceLocation location = getLocation(getItemName(result));
-        return ShapedBuilder.shaped(location, RecipeCategory.BUILDING_BLOCKS, result, count);
-    }
-
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput output) {
-
-    }
+    protected abstract void buildRecipes(@NotNull RecipeOutput output);
 
     /// 战斗用品
     protected void armorRecipe(RecipeOutput output,
@@ -88,7 +77,7 @@ public class DatagenRecipeProvider extends RecipeProvider {
      * 创建头盔配方
      */
     protected void helmetRecipe(RecipeOutput recipeOutput, ItemLike result,
-                               Ingredient requires, String group) {
+                                Ingredient requires, String group) {
         ResourceLocation location = getLocation(getItemName(result));
         ShapedBuilder builder = ShapedBuilder.shaped(location, RecipeCategory.COMBAT, result);
         helmetPattern(builder);
@@ -99,7 +88,7 @@ public class DatagenRecipeProvider extends RecipeProvider {
      * 创建胸甲配方
      */
     protected void chestplateRecipe(RecipeOutput recipeOutput, ItemLike result,
-                               Ingredient requires, String group) {
+                                    Ingredient requires, String group) {
         ResourceLocation location = getLocation(getItemName(result));
         ShapedBuilder builder = ShapedBuilder.shaped(location, RecipeCategory.COMBAT, result);
         chestplatePattern(builder);
@@ -110,7 +99,7 @@ public class DatagenRecipeProvider extends RecipeProvider {
      * 创建护腿配方
      */
     protected void leggingsRecipe(RecipeOutput recipeOutput, ItemLike result,
-                               Ingredient requires, String group) {
+                                  Ingredient requires, String group) {
         ResourceLocation location = getLocation(getItemName(result));
         ShapedBuilder builder = ShapedBuilder.shaped(location, RecipeCategory.COMBAT, result);
         leggingsPattern(builder);
@@ -128,6 +117,14 @@ public class DatagenRecipeProvider extends RecipeProvider {
         requires(builder, Map.of('#', requires), group, recipeOutput);
     }
 
+    private @NotNull ResourceLocation getLocation(String unpackedName) {
+        return ResourceLocation.fromNamespaceAndPath(modId, unpackedName);
+    }
+
+    public static @NotNull String getItemName(ItemLike itemLike) {
+        return net.minecraft.data.recipes.RecipeProvider.getItemName(itemLike);
+    }
+
     /**
      * 创建盾牌配方
      */
@@ -139,7 +136,6 @@ public class DatagenRecipeProvider extends RecipeProvider {
         requires(builder, Map.of('#', requires, 'O', secondaryRequires), group, recipeOutput);
     }
 
-    /// 工具
     /**
      * 创建剑配方
      */
@@ -150,6 +146,8 @@ public class DatagenRecipeProvider extends RecipeProvider {
         swordFramePattern(builder);
         requires(builder, Map.of('#', requires, 'O', secondaryRequires), group, recipeOutput);
     }
+
+    /// 工具
 
     /**
      * 创建斧头配方
@@ -196,8 +194,6 @@ public class DatagenRecipeProvider extends RecipeProvider {
         requires(builder, Map.of('#', requires, 'O', secondaryRequires), group, recipeOutput);
     }
 
-    /// 其他
-
     /**
      * 创建核心框架配方（如末影箱）
      */
@@ -208,6 +204,8 @@ public class DatagenRecipeProvider extends RecipeProvider {
         coreFramePattern(builder);
         requires(builder, Map.of('#', requires, 'O', secondaryRequires), group, recipeOutput);
     }
+
+    /// 其他
 
     /**
      * 创建环形配方（如箱子）
@@ -298,7 +296,7 @@ public class DatagenRecipeProvider extends RecipeProvider {
             stairRecipe(recipeOutput, stair, requires, "stair");
         }
         if (fence != null) {
-            fenceRecipe(recipeOutput, fence, requires,secondaryRequires, "fence");
+            fenceRecipe(recipeOutput, fence, requires, secondaryRequires, "fence");
         }
         if (fenceDoor != null) {
             fenceDoorRecipe(recipeOutput, fenceDoor, requires, secondaryRequires, "fence_door");
@@ -361,17 +359,22 @@ public class DatagenRecipeProvider extends RecipeProvider {
      * 创建台阶配方
      */
     protected void singlePlateRecipe(RecipeOutput recipeOutput, ItemLike result,
-                                  Ingredient requires, String group) {
+                                     Ingredient requires, String group) {
         ShapedBuilder builder = buildingRecipeBuilder(result, 6);
         singlePlatePattern(builder);
         requires(builder, Map.of('#', requires), group, recipeOutput);
+    }
+
+    public @NotNull ShapedBuilder buildingRecipeBuilder(ItemLike result, int count) {
+        ResourceLocation location = getLocation(getItemName(result));
+        return ShapedBuilder.shaped(location, RecipeCategory.BUILDING_BLOCKS, result, count);
     }
 
     /**
      * 创建门配方
      */
     protected void doorRecipe(RecipeOutput recipeOutput, ItemLike result,
-                                  Ingredient requires, String group) {
+                              Ingredient requires, String group) {
         ShapedBuilder builder = buildingRecipeBuilder(result, 3);
         singlePlatePattern(builder);
         requires(builder, Map.of('#', requires), group, recipeOutput);
@@ -381,7 +384,7 @@ public class DatagenRecipeProvider extends RecipeProvider {
      * 创建压力板配方
      */
     protected void pressurePlateRecipe(RecipeOutput recipeOutput, ItemLike result,
-                                  Ingredient requires, String group) {
+                                       Ingredient requires, String group) {
         ShapedBuilder builder = buildingRecipeBuilder(result);
         singlePlatePattern(builder);
         requires(builder, Map.of('#', requires), group, recipeOutput);
