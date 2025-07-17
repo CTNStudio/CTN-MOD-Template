@@ -30,6 +30,7 @@ public class CtnTemplate {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public CtnTemplate(IEventBus modEventBus, ModContainer modContainer) {
+        modEventBus.addListener(this::commonSetup);
 
         BLOCK_REGISTER.register(modEventBus);
         ITEM_REGISTER.register(modEventBus);
@@ -48,18 +49,17 @@ public class CtnTemplate {
     }
 
     @SubscribeEvent
-    public static void onRegisterCommands(RegisterCommandsEvent event) {
+    public void onRegisterCommands(RegisterCommandsEvent event) {
         LOGGER.info("Time to register commands!");
         // 在这注册指令
     }
 
-    @SubscribeEvent
-    public static void commonSetup(FMLCommonSetupEvent event) {
+    public void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("Hello from common setup");
     }
 
     @SubscribeEvent
-    public static void onServerStarting(ServerStartingEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("Hello from server starting");
     }
 }
