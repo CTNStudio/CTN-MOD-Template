@@ -54,12 +54,12 @@ public class CtnTemplate {
     }
 
     @SubscribeEvent
-    private void commonSetup(FMLCommonSetupEvent event) {
+    public static void commonSetup(FMLCommonSetupEvent event) {
         LOGGER.info("Hello from common setup");
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public static void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("Hello from server starting");
     }
 }
